@@ -233,11 +233,12 @@ def createLogRecord(dictIn):
                 if v in ('member', 'memberUid'):
                     for ca, cv in changepairs:
                         if ca == a + ':' + v:
-                            log['summary'] += ' {0}: {1} '.format(ca, cv)
+                            if ' {0}: {1} '.format(ca, cv) not in log['summary']:
+                                log['summary'] += ' {0}: {1} '.format(ca, cv)
         else:
             # default message logs action pairs
             for action, value in actionpairs:
-                log['summary'] += '{0} {1}, '.format(action, value)
+                log['summary'] += '{0} {1} '.format(action, value)
 
     log['timestamp'] = datetime.isoformat(datetime.now())
     return(log)
